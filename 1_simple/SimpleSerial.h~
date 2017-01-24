@@ -8,10 +8,8 @@
 
 #ifndef _SIMPLESERIAL_H
 #define	_SIMPLESERIAL_H
-#include <iostream>
-#include <boost/asio.hpp>
 
-using namespace std;
+#include <boost/asio.hpp>
 
 class SimpleSerial
 {
@@ -51,7 +49,6 @@ public:
         using namespace boost;
         char c;
         std::string result;
-        cout << "Starting read..." << endl;
         for(;;)
         {
             asio::read(serial,asio::buffer(&c,1));

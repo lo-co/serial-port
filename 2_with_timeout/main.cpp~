@@ -15,13 +15,12 @@ int main(int argc, char* argv[])
 {
     try {
  
-        TimeoutSerial serial("/dev/ttyO2",19200);
+        TimeoutSerial serial("/dev/ttyUSB0",115200);
         serial.setTimeout(posix_time::seconds(5));
 
         //Text test
-        serial.writeString("\r\r");
-        serial.writeString("B\r");
-        cout<<serial.readStringUntil("\r")<<endl;
+        serial.writeString("Hello world\r\n");
+        cout<<serial.readStringUntil("\r\n")<<endl;
     
         //Binary test
         char values[]={0xde,0xad,0xbe,0xef};

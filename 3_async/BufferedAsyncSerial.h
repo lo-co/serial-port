@@ -7,6 +7,9 @@
 
 #include "AsyncSerial.h"
 
+using namespace boost;
+using namespace std;
+
 #ifndef BUFFEREDASYNCSERIAL_H
 #define	BUFFEREDASYNCSERIAL_H
 
@@ -27,17 +30,17 @@ public:
     * serial device
     */
     BufferedAsyncSerial(const std::string& devname, unsigned int baud_rate,
-        boost::asio::serial_port_base::parity opt_parity=
-            boost::asio::serial_port_base::parity(
-                boost::asio::serial_port_base::parity::none),
-        boost::asio::serial_port_base::character_size opt_csize=
-            boost::asio::serial_port_base::character_size(8),
-        boost::asio::serial_port_base::flow_control opt_flow=
-            boost::asio::serial_port_base::flow_control(
-                boost::asio::serial_port_base::flow_control::none),
-        boost::asio::serial_port_base::stop_bits opt_stop=
-            boost::asio::serial_port_base::stop_bits(
-                boost::asio::serial_port_base::stop_bits::one));
+        asio::serial_port_base::parity opt_parity=
+            asio::serial_port_base::parity(
+                asio::serial_port_base::parity::none),
+        asio::serial_port_base::character_size opt_csize=
+            asio::serial_port_base::character_size(8),
+        asio::serial_port_base::flow_control opt_flow=
+            asio::serial_port_base::flow_control(
+                asio::serial_port_base::flow_control::none),
+        asio::serial_port_base::stop_bits opt_stop=
+            asio::serial_port_base::stop_bits(
+                asio::serial_port_base::stop_bits::one));
 
     /**
      * Read some data asynchronously. Returns immediately.
@@ -51,7 +54,7 @@ public:
      * Read all available data asynchronously. Returns immediately.
      * \return the receive buffer. It iempty if no data is available
      */
-    std::vector<char> read();
+    vector<char> read();
 
     /**
      * Read a string asynchronously. Returns immediately.
@@ -60,7 +63,7 @@ public:
      * The returned string is empty if no data has arrived
      * \return a string with the received data.
      */
-    std::string readString();
+    string readString();
 
      /**
      * Read a line asynchronously. Returns immediately.
@@ -71,7 +74,7 @@ public:
      * \return a string with the received data. The delimiter is removed from
      * the string.
      */
-    std::string readStringUntil(const std::string delim="\n");
+    string readStringUntil(const std::string delim="\n");
 
     virtual ~BufferedAsyncSerial();
 
@@ -89,11 +92,11 @@ private:
      * \return the beginning of the place in the vector where the first
      * occurrence of the string is, or v.end() if the string was not found
      */
-    static std::vector<char>::iterator findStringInVector(std::vector<char>& v,
-            const std::string& s);
+    static vector<char>::iterator findStringInVector(vector<char>& v,
+            const string& s);
 
-    std::vector<char> readQueue;
-    boost::mutex readQueueMutex;
+    vector<char> readQueue;
+    mutex readQueueMutex;
 };
 
 #endif //BUFFEREDASYNCSERIAL_H

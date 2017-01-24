@@ -10,7 +10,7 @@ int main(int argc, char* argv[])
     try {
 
         SimpleSerial serial("/dev/ttyO2",19200);
-        serial.writeString("\r\r");
+
         serial.writeString("B\r");
 
         cout<<"Received : "<<serial.readLine()<<" : end"<<endl;

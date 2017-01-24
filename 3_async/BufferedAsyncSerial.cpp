@@ -12,8 +12,7 @@
 #include <iostream>
 #include <boost/bind.hpp>
 
-using namespace std;
-using namespace boost;
+
 
 //
 //Class BufferedAsyncSerial
@@ -24,7 +23,7 @@ BufferedAsyncSerial::BufferedAsyncSerial(): AsyncSerial()
     setReadCallback(boost::bind(&BufferedAsyncSerial::readCallback, this, _1, _2));
 }
 
-BufferedAsyncSerial::BufferedAsyncSerial(const std::string& devname,
+BufferedAsyncSerial::BufferedAsyncSerial(const string& devname,
         unsigned int baud_rate,
         asio::serial_port_base::parity opt_parity,
         asio::serial_port_base::character_size opt_csize,
@@ -45,7 +44,7 @@ size_t BufferedAsyncSerial::read(char *data, size_t size)
     return result;
 }
 
-std::vector<char> BufferedAsyncSerial::read()
+vector<char> BufferedAsyncSerial::read()
 {
     lock_guard<mutex> l(readQueueMutex);
     vector<char> result;
@@ -53,7 +52,7 @@ std::vector<char> BufferedAsyncSerial::read()
     return result;
 }
 
-std::string BufferedAsyncSerial::readString()
+string BufferedAsyncSerial::readString()
 {
     lock_guard<mutex> l(readQueueMutex);
     string result(readQueue.begin(),readQueue.end());
@@ -61,7 +60,7 @@ std::string BufferedAsyncSerial::readString()
     return result;
 }
 
-std::string BufferedAsyncSerial::readStringUntil(const std::string delim)
+string BufferedAsyncSerial::readStringUntil(const string delim)
 {
     lock_guard<mutex> l(readQueueMutex);
     vector<char>::iterator it=findStringInVector(readQueue,delim);
@@ -78,8 +77,8 @@ void BufferedAsyncSerial::readCallback(const char *data, size_t len)
     readQueue.insert(readQueue.end(),data,data+len);
 }
 
-std::vector<char>::iterator BufferedAsyncSerial::findStringInVector(
-        std::vector<char>& v,const std::string& s)
+vector<char>::iterator BufferedAsyncSerial::findStringInVector(
+        vector<char>& v,const string& s)
 {
     if(s.size()==0) return v.end();
 

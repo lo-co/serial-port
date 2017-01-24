@@ -162,7 +162,7 @@ private:
      */
     void doClose();
 
-    std::shared_ptr<AsyncSerialImpl> pimpl;
+    shared_ptr<AsyncSerialImpl> pimpl;
 
 protected:
 
